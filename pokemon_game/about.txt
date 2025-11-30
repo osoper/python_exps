@@ -1,0 +1,1 @@
+Fun little Pokemon battle game that runs in the terminal. Reads from a CSV of different Pokemon and their stats.
