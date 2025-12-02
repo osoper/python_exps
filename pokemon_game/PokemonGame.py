@@ -6,7 +6,7 @@
 # Title:        Pokemon Game
 # Date:         11/18/2022
 
-import random  # random module used in minigame and for catching pokemon - not covered in class
+import random  # random module used in minigame and for catching pokemon
 
 player_change = 'no'  # preset variable, changed in the main loop at the bottom based on input
 quit_game = 'no'
@@ -16,7 +16,7 @@ pokemon_file_list = pokemon_file.readlines()
 
 
 def candy_received():
-    '''Randomly generate 3, 5 or 10 candies - returns a value of 3, 5 or 10 for the candy obtained'''
+    '''Randomly generate 3, 5 or 10 candies. Returns a value of 3, 5 or 10 for the candy obtained.'''
     num = random.randint(1, 3)
     if num == 1:
         candy = 3
@@ -30,7 +30,7 @@ def candy_received():
 
 def mini_game():
     '''Called when the player chooses to try and catch a new pokemon. It is a game where the player must guess an
-    integer chosen at random (either 1, 2, or 3) and if successful, will return a value that is used by
+    integer chosen at random (either 1, 2, or 3) and, if successful, will return a value that is used by
     generate_new_pokemon().'''
 
     number = random.randint(1, 3)
@@ -52,10 +52,10 @@ def mini_game():
 
 
 def generate_new_pokemon():
-    '''Checks if current player’s list is empty, if so, the random pokemon is added to the list,
-    otherwise, prints text that indicates the user is in an encounter, causes the user to enter an
-    event where mini_game(): is called so that the user may attempt to catch the pokemon. if mini_game
-    returns the correct value, the randomly generated pokemon is added to the list. Also calls candy_received():'''
+    '''Checks if current player’s list is empty. If so, the random pokemon is added to the list,
+    otherwise, prints text that indicates the user is in an encounter, causing the user to enter an
+    event where mini_game() is called so that the user may attempt to catch the pokemon. If mini_game
+    returns the correct value, the randomly generated pokemon is added to the list. Also calls candy_received()'''
     random_pokemon_num = random.randint(1, len(pokemon_file_list) - 1)  # random pokemon
     pokemon_line_split = pokemon_file_list[random_pokemon_num].split(',')  # splits csv file
     random_pokemon = pokemon_line_split[1]
@@ -69,7 +69,7 @@ def generate_new_pokemon():
     else:
         print(f"You have entered a battle encounter with {random_pokemon}!")  # starts the battle
         if mini_game() == 1:  # if player wins the minigame
-            new_candy = candy_received()  # receives candy amount from candy_received():
+            new_candy = candy_received()  # receives candy amount from candy_received()
             print(f"You caught {str(random_pokemon)} and earned {new_candy} candies!")
             current_player_list.append(random_pokemon)
             pokemon_CP = random.randint(int(pokemon_line_split[2]), int(pokemon_line_split[3]) + 1)
@@ -86,7 +86,7 @@ def generate_new_pokemon():
 def current_pokemon_menu(candy_count):
     '''Views the currently selected pokemon and displays its name, CP, and type. Also accesses the global candy_count
     variable to display the player's total candies. Pokemon information is accessed from lists that are created for
-    each respective statistic, which is handled in generate_new_pokemon():.'''
+    each respective statistic, which is handled in generate_new_pokemon().'''
     print('---------------------------      Current Pokemon     ---------------------------')
     print(f'Pokemon Name: {current_player_list[0]}\nPokemon CP: {current_player_CP_list[0]}\nPokemon Type: {current_player_type_list[0]}')  # displays current pokemon statistics
     print()
@@ -97,7 +97,7 @@ def current_pokemon_menu(candy_count):
 
 
 def pokemon_selection_menu(candy_count, current_player_list):
-    '''Displays all of a player’s collected pokemon and the currently selected pokemon, as well as the total candies.'''
+    '''Displays all of a player’s collected pokemon, the currently selected pokemon, and the total candies.'''
     print("---------------------------  Pokemon Selection Menu  ---------------------------")
     print(f"Current Pokemon: {current_player_list[0]}")
     print()
@@ -158,22 +158,23 @@ while True:  # loop that continuously runs the game when the program starts
         main_menu()  # calls main menu and asks for input on which action to take
         menu_select = int(input('Please select what action you would like to take (1, 2, 3, 4, 5): '))
         print()
-        if menu_select == 1:  # View current pokemon
+        if menu_select == 1:  # view current pokemon
             current_pokemon_menu(candy_count)
-        elif menu_select == 2:  # Get new pokemon
+        elif menu_select == 2:  # get new pokemon
             candy_count += generate_new_pokemon()  # updates total number of candies
-        elif menu_select == 3:  # View all pokemon
+        elif menu_select == 3:  # view all pokemon
             pokemon_selection_menu(candy_count, current_player_list)
             new_current = int(input("If you would like to change your current pokemon, enter the number of that pokemon exactly as it appears.\nOtherwise, enter 1: "))
             if new_current != '':
                 current_player_list.insert(0, current_player_list.pop(new_current - 1))
                 current_player_CP_list.insert(0, current_player_CP_list.pop(new_current - 1))
                 current_player_type_list.insert(0, current_player_type_list.pop(new_current - 1))
-        elif menu_select == 4:  # Change current player
+        elif menu_select == 4:  # change current player
             player_change = 'yes'
             break
-        elif menu_select == 5:  # quits game
+        elif menu_select == 5:  # quit game
             quit_game = 'yes'
             break
 
 pokemon_file.close()
+
